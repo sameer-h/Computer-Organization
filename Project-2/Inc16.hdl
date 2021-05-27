@@ -1,0 +1,29 @@
+/*
+
+Sameer Hussain
+CSCE 312-200
+
+Feb 25th, 2021
+
+*/
+
+/**
+ * 16-bit incrementer:
+ * out = in + 1 (arithmetic addition)
+ * in is UNSIGNED
+ * carry output is intentionally ignored
+ */
+
+CHIP Inc16 {
+    IN in[16];
+    OUT out[16];
+
+    PARTS:
+
+    Not(in=in[0], out=init);
+
+    Or(a=in[0], b=init, out=nbit);
+
+    Add16(a=in, b[0]=nbit, out=out); // final increment done
+
+}

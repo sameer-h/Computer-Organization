@@ -1,0 +1,64 @@
+/*
+
+Sameer Hussain
+CSCE 312-200
+
+Feb 1st, 2021
+
+*/
+
+CHIP PriorityEncoder83 {
+    IN a[8];
+	OUT out[3], idle;
+
+	PARTS:
+
+	Or8Way(in=a, out=idleOut);
+	Not(in=idleOut, out=idle);
+	// simple idle
+	
+	// output first bit
+	
+	Or(a=a[7], b=a[6], out=or67); // here we are going to use a[7] OR a[6]
+
+	Or(a=a[5], b=a[4], out=or54); // important
+
+	Or(a=or67, b=or54, out=out[2]);
+
+	
+	// output second bit
+	Or(a=a[3], b=a[2], out=or23);
+
+	Nor(a=a[5], b=a[4], out=not54or);
+
+	And(a=or23, b=not54or, out=and32orNot5or4); // output here will be used to for out[1]
+
+	Or(a=or67, b=and32orNot5or4, out=out[1]);
+
+	
+	
+	Not(in=a[6], out=not6); // if NOT 6
+
+	And(a=a[5], b=not6, out=and5not6); // bit 5 has significance
+	
+	Not(in=a[4], out=not4);
+
+	And(a=a[3], b=not4, out=and34not);
+
+	And(a=and34not, b=not6, out=and34not6);
+	Not(in=a[2], out=not2); // AND (3,4 (NOT 6))
+
+	And(a=a[1], b=not2, out=and1not2); // NOT 2 and NOT 4 and NOT 6
+	And(a=and1not2, b=not4, out=and1not24);
+	And(a=and1not24, b=not6, out=and1not246); // bit 1 important here
+
+	// seventh bit is important here
+	Or(a=a[7], b=and5not6, out=or01out);
+
+	Or(a=or01out, b=and34not6, out=or02out);
+
+	Or(a=or02out, b=and1not246, out=out[0]);
+
+
+    
+}

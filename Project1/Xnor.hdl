@@ -1,0 +1,22 @@
+/*
+
+Sameer Hussain
+CSCE 312-200
+
+Feb 1st, 2021
+
+*/
+
+/**
+ * Exclusive-Nor gate:
+ * out = (a == b)
+ */
+
+CHIP Xnor {
+    IN a, b;
+    OUT out;
+
+    PARTS: // exclusive or inputs and then not the result
+    Xor(a=a, b=b, out=aXorB);
+    Not(in=aXorB, out=out);
+}

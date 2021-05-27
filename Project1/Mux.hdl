@@ -1,0 +1,25 @@
+/*
+
+Sameer Hussain
+CSCE 312-200
+
+Feb 1st, 2021
+
+*/
+
+/** 
+ * Multiplexor:
+ * out = a if sel == 0
+ *       b otherwise
+ */
+
+CHIP Mux {
+    IN a, b, sel;
+    OUT out;
+
+    PARTS: // Multiplexer (a sel ') + (b sel)
+    Not(in=sel, out=notSel);
+    And(a=a, b=notSel, out=aAndnotSel);
+    And(a=b, b=sel, out=bAndsel);
+    Or(a=aAndnotSel, b=bAndsel, out=out);
+}

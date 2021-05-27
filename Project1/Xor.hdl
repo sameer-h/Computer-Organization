@@ -1,0 +1,26 @@
+/*
+
+Sameer Hussain
+CSCE 312-200
+
+Feb 1st, 2021
+
+*/
+
+/**
+ * Exclusive-or gate:
+ * out = not (a == b)
+ */
+
+CHIP Xor {
+    IN a, b;
+    OUT out;
+
+    PARTS: // Construction of the XOR gate requires NOT inputs of a,b as well as three sets of NOR gates to ensure exclusive OR
+    Not(in=a, out=notA);
+    Not(in=b, out=notB);
+
+    Nor(a=notA, b=notB, out=aNorB);
+    Nor(a=a, b=b, out=aNorB2);
+    Nor(a=aNorB, b=aNorB2, out=out);
+}

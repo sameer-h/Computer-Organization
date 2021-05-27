@@ -1,0 +1,25 @@
+/*
+
+Sameer Hussain
+CSCE 312-200
+Feb 1st, 2021
+
+*/
+
+/**
+ * And gate: 
+ * out = 1 if (a == 1 and b == 1)
+ *       0 otherwise
+ */
+
+CHIP And {
+    IN a, b;
+    OUT out;
+
+    PARTS: // Here we are simply using NOR but with NOT a, NOT b
+
+    Not(in=a, out=notA);
+    Not(in=b, out=notB);
+    
+    Nor(a=notA, b=notB, out=out);
+}
